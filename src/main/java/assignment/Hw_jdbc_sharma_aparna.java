@@ -19,7 +19,7 @@ import assignment.models.User;
 import assignment.models.Website;
 import assignment.models.YouTubeWidget;
 
-public class Test {
+public class Hw_jdbc_sharma_aparna {
 
 	private static DeveloperDao devDao = DeveloperDao.getInstance();
 	private static UserDao userDao = UserDao.getInstance();
@@ -31,7 +31,7 @@ public class Test {
 
 	public static void main(String args[]) {
 
-		// TruncateAllTables();
+		
 
 		// 1. Create the following developers and users. Insert into the correct tables
 		// depending on the type
