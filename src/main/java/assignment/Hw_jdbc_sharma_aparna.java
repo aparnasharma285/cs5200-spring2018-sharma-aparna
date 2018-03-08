@@ -204,7 +204,8 @@ public class Hw_jdbc_sharma_aparna {
 	}
 
 	public static void updateQuestion1() {
-
+		int charlieDevId = (devDao.findDeveloperByUsername("charlie")).getId();
+		devDao.updatePrimaryPhone("333-444-5555",charlieDevId);
 	}
 
 	public static void updateQuestion2() {

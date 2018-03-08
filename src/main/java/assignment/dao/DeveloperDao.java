@@ -42,6 +42,8 @@ public class DeveloperDao extends ConnectionDao {
 
 	private final String DELETE_PRIMARY_ADDRESS = "DELETE FROM Address WHERE person = ? AND `primary` = 1";
 	
+	private final String UPDATE_PRIMARY_PHONE = "UPDATE Phone SET `primary` = CASE WHEN (`number` = ?) THEN TRUE ELSE FALSE END WHERE person = ?";
+	
 	// 1. int createDeveloper(Developer developer)
 
 	public int createDeveloper(Developer developer) {
@@ -400,6 +402,43 @@ public class DeveloperDao extends ConnectionDao {
 		}
 		return result;
 
+	}
+	
+	// Update primary phone number
+	public int updatePrimaryPhone(String number, int devId) {
+		int result = 0;
+		PreparedStatement stmt = null;
+
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			stmt = con.prepareStatement(UPDATE_PRIMARY_PHONE);
+
+			stmt.setString(1, number);
+			stmt.setInt(2, devId);
+
+			result = stmt.executeUpdate();
+			
+			if(result == 0) {
+				
+				System.out.println("No Phone found");
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+
+			try {
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+		return result;
 	}
 
 	public void printAllDevelopers(Collection<Developer> developers) {
